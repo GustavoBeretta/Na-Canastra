@@ -3,25 +3,251 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cor--primaria: #5e2129;
+  --cor--secundaria: #f6f6f6;
+  --cor--terciaria: #000000;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Ajuste a distância entre os botões aqui */
+}
+
+.contato {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.whats_mobile {
+  display: none;
+}
+
+.contato img {
+  width: 40px;
+  height: 40px;
+}
+
+.tipo_cardapio {
+  text-align: center;
+  margin: 20px 0;
+  color: var(--cor--primaria);
+  font-size: 35px;
+}
+
+.card_produto {
+  background-color: var(--cor--primaria);
+  color: white;
+  width: 320px;
+  border-radius: 10px;
+  margin: 40px 5px;
+  display: flex;
+  padding: 10px;
+  position: relative;
+}
+
+.foto_produto {
+  height: 150px;
+  border-radius: 90px;
+  margin-right: 20px;
+}
+
+.nome_produto {
+  margin-bottom: 20px;
+}
+
+img {
+  margin: auto;
+}
+
+.peso {
+  font-size: 19px;
+  margin-bottom: 40px;
+}
+
+.preço {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.produtos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+a {
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.header {
+  background: var(--cor--primaria);
+  padding-inline: 16px;
+  z-index: 2;
+  position: fixed; /* Adiciona esta linha */
+  width: 100%; /* Ocupa toda a largura da janela */
+  top: 0; /* Fixa o cabeçalho no topo */
+}
+
+.nav {
+  max-width: 1280px;
+  height: 70px;
+  margin-inline: auto;
+  padding-right: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#title {
+  font-size: 35px;
+  color: #f6f6f6;
+}
+
+.nav-list {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-list a {
+  font-size: 18px;
+  color: #fff;
+  padding-block: 16px;
+}
+
+.hero {
+  padding-top: 70px; /* Adiciona espaço para o header */
+  height: calc(100vh - 70px);
+  /*background: center / cover no-repeat url("./bg.jpg");*/
+}
+
+.hamburger {
+  display: none;
+  border: none;
+  background: none;
+  border-top: 3px solid #fff;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.hamburger::after,
+.hamburger::before {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 3px;
+  background: #fff;
+  margin-top: 5px;
+  position: relative;
+  transition: 0.3s;
+}
+
+@media (max-width: 800px) {
+  .hamburger {
+    display: block;
+    z-index: 1;
+    top: 16px;
+    right: 16px;
+  }
+
+  .nav-list {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background: var(--cor--primaria);
+    clip-path: circle(100px at 90% -15%);
+    transition: 1s ease-out;
+
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0;
+
+    pointer-events: none;
+  }
+
+  .nav-list a {
+    font-size: 24px;
+    opacity: 0;
+  }
+
+  .nav-list li:nth-child(1) a {
+    transition: 0.5s 0.2s;
+  }
+
+  .nav-list li:nth-child(2) a {
+    transition: 0.5s 0.4s;
+  }
+
+  .nav-list li:nth-child(3) a {
+    transition: 0.5s 0.6s;
+  }
+
+  .nav-list li:nth-child(4) a {
+    transition: 0.5s 0.8s;
+  }
+
+  .nav-list li:nth-child(5) a {
+    transition: 0.5s 1s;
+  }
+
+  .nav-list li:nth-child(6) a {
+    transition: 0.5s 1.2s;
+  }
+
+  /* Estilos ativos */
+
+  .nav.active .nav-list {
+    clip-path: circle(1500px at 90% -15%);
+    pointer-events: all;
+  }
+
+  .nav.active .nav-list a {
+    opacity: 1;
+  }
+
+  .nav.active .hamburger {
+    position: fixed;
+    top: 26px;
+    right: 16px;
+    border-top-color: transparent;
+  }
+
+  .nav.active .hamburger::before {
+    transform: rotate(135deg);
+  }
+
+  .nav.active .hamburger::after {
+    transform: rotate(-135deg);
+    top: -7px;
+  }
+
+  .contato {
+    display: block;
+  }
+
+  .whats_web {
+    display: none;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.no-scroll {
+  overflow: hidden;
 }
