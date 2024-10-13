@@ -1,10 +1,10 @@
 import express, { request, response } from "express";
-import User from "./models/user.js";
-import connectDatabase from "./database/db.js";
-import product from "./models/product.js";
+import User from "./src/models/user.js";
+import connectDatabase from "./src/database/db.js";
+import product from "./src/models/product.js";
 const app = express();
 
-app.use(express, json());
+// app.use(express, json());
 app.get("./users", async (request, response) => {
   const users = await User.find();
   return response.status(200).json(users);
