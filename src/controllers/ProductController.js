@@ -1,6 +1,6 @@
 import Product from "../models/product.js";
 
-async function getProduct(request, response) {
+async function getProducts(request, response) {
     const product = await Product.find();
     return response.status(200).json(product);
 }
@@ -11,4 +11,4 @@ async function createProduct(request, response) {
     return response.json(newProduct);
 }
 
-export { createProduct, getProduct };
+export { createProduct, getProducts };
