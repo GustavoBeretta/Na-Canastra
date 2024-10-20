@@ -1,7 +1,10 @@
 export default function Home() {
   return (
-    <div> 
-      Hello World
+    <div>
+      <h1 class="tipo_cardapio">Queijos</h1>
+      <div class="produtos">
+
+      </div>
     </div>
   );
 }
