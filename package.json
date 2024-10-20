@@ -2,7 +2,7 @@
   "name": "nacastranext",
   "version": "0.1.0",
   "private": true,
-  "main": "index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "dev": "next dev",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "^4.21.1",
+    "firebase": "^10.14.1",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.1",
     "next": "^14.2.14",
