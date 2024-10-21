@@ -8,7 +8,11 @@ import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    document.body.style.overflow = isOpen ? 'auto' : 'hidden';
+  };
+  
 
   return (
     <header className={styles.header}>

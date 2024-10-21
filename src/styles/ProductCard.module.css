@@ -3,7 +3,7 @@
     color: white;
     width: 320px;
     border-radius: 10px;
-    margin: 40px 5px;
+    margin: 15px 5px;
     display: flex;
     padding: 10px;
     position: relative;
@@ -17,16 +17,18 @@
   
   .nome_produto {
     margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: 600;
   }
   
   .peso {
-    font-size: 19px;
+    font-size: 20px;
     margin-bottom: 40px;
   }
   
-  .preço {
+  .preco {
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 500;
     position: absolute;
     bottom: 10px;
     right: 10px;
