@@ -1,11 +1,11 @@
 export default function ProductCard(product) {
   return (
-    <div class="card_produto">
-      <img src={product.image_path} class="foto_produto" />
+    <div>
+      <img src={product.imageURL}/>
       <div>
-        <h2 class="nome_produto">{product.name}</h2>
-        <p class="peso">Peso: {product.weight}</p>
-        <p class="preço">R${product.price}</p>
+        <h2>{product.name}</h2>
+        <p>Peso: {product.peso}</p>
+        <p>R${product.preco}</p>
       </div>
     </div>
   );
