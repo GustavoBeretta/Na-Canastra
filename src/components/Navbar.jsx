@@ -4,9 +4,33 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../styles/Navbar.module.css';
 import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const router = useRouter();
+
+  function RedirectQueijos() {
+    router.push('/')
+  }
+
+  function RedirectBufala() {
+    router.push('/bufala')
+  }
+
+  function RedirectZeroLactose() {
+    router.push('/zero-lactose')
+  }
+
+  function RedirectDoces() {
+    router.push('/doces')
+  }
+
+  function RedirectVariedades() {
+    router.push('/variedades')
+  }
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -44,10 +68,10 @@ export default function Navbar() {
 
         <ul className={`${styles.nav_list} ${isOpen ? styles.open : ''}`}>
             <li><Link href="/">Queijos</Link></li>
-            <li><Link href="/">Búfala</Link></li>
-            <li><Link href="/">Zero Lactose</Link></li>
-            <li><Link href="/">Doces</Link></li>
-            <li><Link href="/">Variedades</Link></li>
+            <li><Link href="/bufala">Búfala</Link></li>
+            <li><Link href="/zero-lactose">Zero Lactose</Link></li>
+            <li><Link href="/doces">Doces</Link></li>
+            <li><Link href="/variedades">Variedades</Link></li>
         </ul>
       
       </nav>
