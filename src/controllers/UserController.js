@@ -1,4 +1,4 @@
-import User from "../models/user.js";
+/*import User from "../models/user.js";
 
 async function getUsers(request, response) {
     const users = await User.find();
@@ -12,3 +12,4 @@ async function createUsers(request, response) {
 }
 
 export { createUsers, getUsers };
+*/

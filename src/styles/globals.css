@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cor--primaria: #5e2129;
+  --cor--secundaria: #f6f6f6;
+  --cor--terciaria: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.tipo_cardapio {
+  text-align: center;
+  margin: 20px 0;
+  color: var(--cor--primaria);
+  font-size: 35px;
+}
+
+.produtos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

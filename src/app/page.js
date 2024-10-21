@@ -1,52 +1,59 @@
-'use client'
+'use client';
 
 import ProductCard from '@/components/ProductCard';
 import { useState, useEffect } from 'react';
 
 const getQueijos = async () => {
   try {
-    const res = await fetch('http://localhost:3001/Product');
+    const res = await fetch('/api/products');
     if (!res.ok) {
-      throw new Error("Failed to fetch the products");
+      throw new Error('Failed to fetch the products');
     }
     const data = await res.json();
-    return Array.isArray(data.product) ? data.product : [];
+    return Array.isArray(data.products) ? data.products : [];
   } catch (error) {
-    console.log("Error loading the products: ", error);
+    console.error('Error loading the products: ', error);
     return [];
   }
 };
 
 export default function Home() {
-
   const [queijos, setQueijos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await getQueijos();
       const queijos = data.filter(product => product.tipo === 'Queijos');
       setQueijos(queijos);
+      setIsLoading(false);
     };
-  
+
     fetchProducts();
   }, []);
-  
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
 
   return (
-    <div>
-      <h1>Queijos</h1>
-      <div>
+    <main>
+      <h1 className='tipo_cardapio'>Queijos</h1>
+      <div className='produtos'>
         {queijos.length > 0 ? (
           queijos.map(q => (
             <ProductCard
-              product={q}
+              key={q._id}
+              imageURL={q.imageURL ? q.imageURL : 'https://via.placeholder.com/150'}
+              name={q.name}
+              peso={q.peso}
+              preco={q.preco}
             />
           ))
         ) : (
           <p>Nenhum produto encontrado</p>
         )}
-
       </div>
-    </div>
+    </main>
   );
 }

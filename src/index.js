@@ -1,5 +1,4 @@
-import express from "express";
-import connectDatabase from "./database/db.js";
+/*import express from "express";
 import routes from "./routes.js";
 import { initializeApp } from "firebase/app";
 
@@ -21,12 +20,4 @@ initializeApp(firebaseConfig);
 
 app.use(express.json());
 app.use(routes);
-
-// Conectar ao banco de dados MongoDB
-connectDatabase()
-    .then(() => {
-        app.listen(3000, () => {
-            console.log("Servidor rodando e banco de dados conectado");
-        });
-    })
-    .catch(() => console.log("Deu ruim"));
+*/

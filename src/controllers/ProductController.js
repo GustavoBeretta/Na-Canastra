@@ -1,4 +1,4 @@
-import Product from "../models/product.js";
+/*import Product from "../models/product.js";
 
 async function getProducts(request, response) {
     const product = await Product.find();
@@ -43,3 +43,5 @@ async function deleteProduct(request, response) {
 }
 
 export { createProduct, getProducts, updateProduct, deleteProduct };
+
+*/

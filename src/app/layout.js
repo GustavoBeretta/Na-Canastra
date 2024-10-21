@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../styles/globals.css";
 import NavBar from "../components/Navbar"
 
 export default function RootLayout({ children }) {
@@ -6,9 +6,7 @@ export default function RootLayout({ children }) {
     <html lang="pt-br">
       <body>
         <NavBar/>
-        <main>
-          {children}
-        </main>
+        {children}
       </body>
     </html>
   );

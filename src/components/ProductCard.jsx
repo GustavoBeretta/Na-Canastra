@@ -1,11 +1,13 @@
-export default function ProductCard(product) {
+import styles from '../styles/ProductCard.module.css';
+
+export default function ProductCard({imageURL, name, peso, preco}) {
   return (
-    <div>
-      <img src={product.imageURL}/>
+    <div className={styles.card_produto}>
+      <img src={imageURL} className={styles.foto_produto}/>
       <div>
-        <h2>{product.name}</h2>
-        <p>Peso: {product.peso}</p>
-        <p>R${product.preco}</p>
+        <h2 className={styles.nome_produto}>{name}</h2>
+        <p className={styles.peso}>Peso: {peso}</p>
+        <p className={styles.preco}>R${preco}</p>
       </div>
     </div>
   );
