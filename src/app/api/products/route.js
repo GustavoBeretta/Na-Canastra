@@ -12,3 +12,15 @@ export async function GET() {
     return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
   }
 }
+
+export async function POST(request) {
+  const formData = await request.json()
+  try {
+    await connectDatabase();
+    await Product.create(formData)
+    return NextResponse.json({ message: 'Product created' });
+  } catch (error) {
+    console.error( error);
+    return NextResponse.json({ error: 'Failed to create the product' }, { status: 500 });
+  }
+}

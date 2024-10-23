@@ -15,7 +15,7 @@ const productSchema = new mongoose.Schema({
     },
     tipo: {
         type: String,
-        enum: ['Queijos', 'Búfula', 'Zero Lactose', 'Doces', 'Variedades'],
+        enum: ['Queijos', 'Búfala', 'Zero Lactose', 'Doces', 'Variedades'],
         required: true,
     },
     imageURL: {
