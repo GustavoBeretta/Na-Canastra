@@ -8,6 +8,7 @@
     width: 300px;
     padding: 20px;
     border-radius: 7px;
+    padding-top: 10px;
 }
 
 .text {
@@ -24,6 +25,13 @@
     font-size: 17px;
 }
 
-.option {
-    width: 250px;
+.button {
+    margin: auto;
+    margin-top: 20px;
+    background-color: rgb(250, 221, 135);
+    color: black;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 8px;
+    font-weight: 500;
 }

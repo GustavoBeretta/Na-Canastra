@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const getQueijos = async () => {
   try {
-    const res = await fetch('/api/products');
+    const res = await fetch('/api/products', {cache: "no-store"});
     const data = await res.json();
     if (!res.ok) {
       throw new Error(data.message);
@@ -17,7 +17,7 @@ const getQueijos = async () => {
   }
 };
 
-export default function Home() {
+export default function Queijos() {
   const [queijos, setQueijos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

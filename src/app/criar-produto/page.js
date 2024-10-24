@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react';
-import styles from '../../styles/CriarProduto.module.css';
+import styles from '../../styles/CRUDProduto.module.css';
 
-export default function Home() {
+export default function CriarProduto() {
 
     const [formData, setFormData] = useState({
         name: '',
@@ -20,7 +20,6 @@ export default function Home() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const res = await fetch('/api/products', {
                 method: 'POST',
@@ -72,7 +71,7 @@ export default function Home() {
                     <option value="Variedades" className={styles.options}>Variedades</option>
                 </select>
 
-                <button type="submit">Criar produto</button>
+                <button type="submit" className={styles.button}>Criar produto</button>
             </form>
         </div>
         </main>

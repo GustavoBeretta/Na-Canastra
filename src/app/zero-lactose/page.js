@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 const getProdutos = async () => {
   try {
-    const res = await fetch('/api/products');
+    const res = await fetch('/api/products', {cache: "no-store"});
     const data = await res.json();
     if (!res.ok) {
       throw new Error(data.message);
@@ -17,7 +17,7 @@ const getProdutos = async () => {
   }
 };
 
-export default function Home() {
+export default function ZeroLactose() {
   const [produtos, setProdutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

@@ -24,3 +24,15 @@ export async function POST(request) {
     return NextResponse.json({ message: 'Erro ao criar o produto' }, { status: 500 });
   }
 }
+
+export async function DELETE(request) {
+  const id = request.nextUrl.searchParams.get("id")
+  try {
+    await connectDatabase();
+    await Product.findByIdAndDelete(id)
+    return NextResponse.json({ message: 'Produto excluído' });
+  } catch (error) {
+    console.log(error)
+    return NextResponse.json({ message: 'Erro ao excluir o produto' }, { status: 500 });
+  }
+}

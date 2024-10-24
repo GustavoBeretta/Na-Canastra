@@ -1,6 +1,6 @@
 'use client';
 
-import ProductCard from '@/components/ProductCard';
+import ProductCardAdmin from '@/components/ProductCardAdmin';
 import { useState, useEffect } from 'react';
 
 const getProdutos = async () => {
@@ -17,14 +17,13 @@ const getProdutos = async () => {
   }
 };
 
-export default function Doces() {
+export default function EditarProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getProdutos();
-      const produtos = data.filter(product => product.tipo === 'Doces');
+      const produtos = await getProdutos();
       setProdutos(produtos);
       setIsLoading(false);
     };
@@ -38,15 +37,17 @@ export default function Doces() {
 
   return (
     <main>
-      <h1 className='tipo_cardapio'>Doces</h1>
+      <h1 className='tipo_cardapio'>Editar produtos</h1>
       <div className='produtos'>
         {produtos.length > 0 ? (
           produtos.map(q => (
-            <ProductCard
+            <ProductCardAdmin
               key={q._id}
+              id={q._id}
               imageURL={q.imageURL ? q.imageURL : 'https://via.placeholder.com/150'}
               name={q.name}
               peso={q.peso}
+              tipo={q.tipo}
               preco={q.preco}
             />
           ))
