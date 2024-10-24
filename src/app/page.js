@@ -44,7 +44,7 @@ export default function Queijos() {
           queijos.map(q => (
             <ProductCard
               key={q._id}
-              imageURL={q.imageURL ? q.imageURL : 'https://via.placeholder.com/150'}
+              imagem={q.imagem ? q.imagem : 'https://via.placeholder.com/150'}
               name={q.name}
               peso={q.peso}
               preco={q.preco}
