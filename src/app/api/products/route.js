@@ -8,8 +8,8 @@ export async function GET() {
     const products = await Product.find();
     return NextResponse.json({ products });
   } catch (error) {
-    console.error('Database fetch error:', error);
-    return NextResponse.json({ error: 'Failed to fetch products' }, { status: 500 });
+    console.log(error)
+    return NextResponse.json({ message: 'Erro ao buscar os produtos' }, { status: 500 });
   }
 }
 
@@ -18,9 +18,9 @@ export async function POST(request) {
   try {
     await connectDatabase();
     await Product.create(formData)
-    return NextResponse.json({ message: 'Product created' });
+    return NextResponse.json({ message: 'Produto criado' });
   } catch (error) {
-    console.error( error);
-    return NextResponse.json({ error: 'Failed to create the product' }, { status: 500 });
+    console.log(error)
+    return NextResponse.json({ message: 'Erro ao criar o produto' }, { status: 500 });
   }
 }

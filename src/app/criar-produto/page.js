@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+import styles from '../../styles/CriarProduto.module.css';
 
 export default function Home() {
 
@@ -21,8 +22,6 @@ export default function Home() {
         e.preventDefault();
 
         try {
-            console.log(typeof(formData))
-            console.log(formData)
             const res = await fetch('/api/products', {
                 method: 'POST',
                 headers: {
@@ -31,45 +30,46 @@ export default function Home() {
                 body: JSON.stringify(formData)
             })
 
+            const data = await res.json()
             if (res.ok) {
-                alert('Produto criado com sucesso')
+                alert(data.message)
             } else {
-                throw new Error('Erro ao criar produto')
+                throw new Error(data.message)
             }
         } catch(error) {
             alert(error)
         }
 
-        alert('Cadastro realizado com sucesso!');
     };
 
     return (
         <main>
         <h1 className='tipo_cardapio'>Criar um produto</h1>
         <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Nome do produto:</label>
-                <input type="text" name="name" onChange={handleChange} required/>
+            <form onSubmit={handleSubmit} className={styles.form_container}>
+                <label htmlFor="name" className={styles.text}>Nome do produto:</label>
+                <input type="text" name="name" onChange={handleChange} required className={styles.input}/>
 
-                <label htmlFor="peso">Peso:</label>
-                <input type="text" name="peso" onChange={handleChange} required/>
+                <label htmlFor="peso" className={styles.text}>Peso:</label>
+                <input type="text" name="peso" onChange={handleChange} required className={styles.input}/>
 
-                <label htmlFor="preco">Preço:</label>
-                <input type="text" name="preco" onChange={handleChange} required/>
+                <label htmlFor="preco" className={styles.text}>Preço:</label>
+                <input type="text" name="preco" onChange={handleChange} required className={styles.input}/>
 
-                <label htmlFor="imagem">Link da imagem:</label>
-                <input type="text" name="imagem" onChange={handleChange} required/>
+                <label htmlFor="imagem" className={styles.text}>Link da imagem:</label>
+                <input type="text" name="imagem" onChange={handleChange} required className={styles.input}/>
 
-                <label htmlFor="tipo">Tipo:</label>
+                <label htmlFor="tipo" className={styles.text}>Tipo:</label>
                 <select
                     name="tipo"
                     onChange={handleChange}
+                    className={styles.input}
                 >
-                    <option value="Queijos">Queijos</option>
-                    <option value="Búfala">Búfala</option>
-                    <option value="Zero Lactose">Zero Lactose</option>
-                    <option value="Doces">Doces</option>
-                    <option value="Variedades">Variedades</option>
+                    <option value="Queijos" className={styles.options}>Queijos</option>
+                    <option value="Búfala" className={styles.options}>Búfala</option>
+                    <option value="Zero Lactose" className={styles.options}>Zero Lactose</option>
+                    <option value="Doces" className={styles.options}>Doces</option>
+                    <option value="Variedades" className={styles.options}>Variedades</option>
                 </select>
 
                 <button type="submit">Criar produto</button>

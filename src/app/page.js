@@ -6,13 +6,13 @@ import { useState, useEffect } from 'react';
 const getQueijos = async () => {
   try {
     const res = await fetch('/api/products');
-    if (!res.ok) {
-      throw new Error('Failed to fetch the products');
-    }
     const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message);
+    }
     return Array.isArray(data.products) ? data.products : [];
   } catch (error) {
-    console.error('Error loading the products: ', error);
+    console.error(error);
     return [];
   }
 };

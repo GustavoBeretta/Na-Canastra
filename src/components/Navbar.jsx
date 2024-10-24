@@ -4,33 +4,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../styles/Navbar.module.css';
 import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const router = useRouter();
-
-  function RedirectQueijos() {
-    router.push('/')
-  }
-
-  function RedirectBufala() {
-    router.push('/bufala')
-  }
-
-  function RedirectZeroLactose() {
-    router.push('/zero-lactose')
-  }
-
-  function RedirectDoces() {
-    router.push('/doces')
-  }
-
-  function RedirectVariedades() {
-    router.push('/variedades')
-  }
-
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

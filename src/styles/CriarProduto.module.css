@@ -1,0 +1,29 @@
+.form_container {
+    margin: auto;
+    margin-top: 30px;
+    background-color: var(--cor--primaria);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 7px;
+}
+
+.text {
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.input {
+    margin-top: 5px;
+    color: black;
+    padding: 3px;
+    padding-left: 8px;
+    font-size: 17px;
+}
+
+.option {
+    width: 250px;
+}
