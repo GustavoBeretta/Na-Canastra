@@ -132,7 +132,7 @@ export default function EditarProduto({ params }) {
 
                 <button type="submit" className={styles.button}>Editar produto</button>
 
-                <button onClick={removeProduct} className={styles.button}>Excluir produto</button>
+                <button type="button" onClick={removeProduct} className={styles.button}>Excluir produto</button>
             </form>
         </div>
         </main>
