@@ -13,7 +13,7 @@ export default function RegisterPage() {
     setError(""); // Reseta o erro antes de cada nova tentativa
 
     // Envia a requisição de cadastro
-    const response = await fetch("/api/register", {
+    const response = await fetch("/api/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }), // Não use password já hasheado aqui
