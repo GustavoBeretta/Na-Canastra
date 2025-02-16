@@ -46,13 +46,18 @@ export default function EditarProduto({ params }) {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
+        setFormData({ ...formData, [name]: newValue });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
+            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length != 2)) {
+                throw new Error('O preço deve ser um número no formato "1,23"');
+            }
+
             const res = await fetch(`/api/products/${id}`, {
                 method: 'PUT',
                 headers: {
@@ -120,9 +125,11 @@ export default function EditarProduto({ params }) {
                 <select
                     name="tipo"
                     onChange={handleChange}
-                    className={styles.input}
                     value={formData.tipo}
-                >
+                    required
+                    className={styles.input}
+                >   
+                    <option value="" disabled>Selecione um tipo</option>
                     <option value="Queijos" className={styles.options}>Queijos</option>
                     <option value="Búfala" className={styles.options}>Búfala</option>
                     <option value="Zero Lactose" className={styles.options}>Zero Lactose</option>

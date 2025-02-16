@@ -22,7 +22,7 @@ export default function CriarProduto() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (isNaN(formData.preco) || formData.preco.split('.')[1].length != 2) {
+            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length != 2)) {
                 throw new Error('O preço deve ser um número no formato "1,23"');
             }
 
@@ -67,8 +67,11 @@ export default function CriarProduto() {
                 <select
                     name="tipo"
                     onChange={handleChange}
+                    value={formData.tipo}
+                    required
                     className={styles.input}
-                >
+                >   
+                    <option value="" disabled>Selecione um tipo</option>
                     <option value="Queijos" className={styles.options}>Queijos</option>
                     <option value="Búfala" className={styles.options}>Búfala</option>
                     <option value="Zero Lactose" className={styles.options}>Zero Lactose</option>
