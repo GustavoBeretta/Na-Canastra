@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import NavBar from "../components/Navbar"
+import { AuthProvider } from './Providers'
 
 export default function RootLayout({ children }) {
   return (
@@ -9,8 +10,10 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/Logo.jpeg" />
       </head>
       <body>
-        <NavBar/>
-        {children}
+        <AuthProvider>
+          <NavBar/>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
