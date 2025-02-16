@@ -1,4 +1,5 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
+require('mongoose-currency').loadType(mongoose)
 
 export default async function connectDatabase() {
     try{

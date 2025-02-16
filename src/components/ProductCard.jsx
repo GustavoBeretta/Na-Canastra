@@ -7,7 +7,9 @@ export default function ProductCard({imagem, name, peso, preco}) {
       <div>
         <h2 className={styles.nome_produto}>{name}</h2>
         <p className={styles.peso}>Peso: {peso}</p>
-        <p className={styles.preco}>R${preco}</p>
+        <p className={styles.preco}>
+          R${(preco/100).toFixed(2).replace(/\./g, ',')}
+        </p>
       </div>
     </div>
   );

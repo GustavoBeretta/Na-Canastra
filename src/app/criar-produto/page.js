@@ -15,12 +15,17 @@ export default function CriarProduto() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
+        setFormData({ ...formData, [name]: newValue });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            if (isNaN(formData.preco) || formData.preco.split('.')[1].length != 2) {
+                throw new Error('O preço deve ser um número no formato "1,23"');
+            }
+
             const res = await fetch('/api/products', {
                 method: 'POST',
                 headers: {

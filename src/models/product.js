@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 
+var Currency = mongoose.Types.Currency
+
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
     preco: {
-        type: Number,
+        type: Currency,
         required: true,
     },
     peso: {
