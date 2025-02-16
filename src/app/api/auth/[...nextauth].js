@@ -1,11 +1,11 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
-import connectMongoDB from "../../../../../libs/mongodb"
+import connectMongoDB from "../../../lib/db"
 import bcrypt from 'bcryptjs'
 
 // função para achar um usuário no banco de dados que corresponda com o email digitado
 async function findUser(email) {
-    const response = await fetch("https://rental-request-app.vercel.app/api/users");
+    const response = await fetch("https://localhost3000/api/users");
     const usuarios = await response.json();
     const user = await usuarios.users.find((usuario) => usuario.email === email);
     return user;
@@ -19,7 +19,7 @@ const authOptions = {
 
             // função de validação das credenciais digitadas
             async authorize(credentials) {
-                const { email, password, isEmployeeLogin } = credentials
+                const { email, password } = credentials
 
                 try {
                     await connectMongoDB()
@@ -35,13 +35,6 @@ const authOptions = {
                     
                     if (!passwordsMatch) {
                         return null
-                    }
-
-                    // verifica se a tentativa de login é para funcionário e, caso positivo, verifica se o usuário realmente é um funcionário
-                    if (isEmployeeLogin === 'true') {
-                        if (user.role !== "employee") {
-                            return null
-                        }
                     }
 
                     return user
