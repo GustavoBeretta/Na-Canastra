@@ -4,26 +4,31 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
-const router = useRouter(); 
+    const router = useRouter(); 
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
+    
+      const handleSubmit =  async(event) => {
+          event.preventDefault();
 
-    const handleSubmit =  async(event) => {
-        event.preventDefault();
+          try {
+            const res = await signIn("credentials", {
+              email, password, redirect: false,
+            });
 
-        await signIn("credentials", {
-            redirect: false,
-            email: email,
-            password: password,
-        });
+            if (res.error){
+                alert("FALHA NA AUTENTICAÇÃO");
+                return;
+            }
 
-        if (response?.error){
-            alert("FALHA NA AUTENTICAÇÃO");
-            return;
-        }
+            router.push("/editar-produto");
+          
+          } catch (error) {
+              console.log(error)
+          }
 
-        Router.push("/");
-    };
+      }
+
     return (
       <div style={styles.container}>
         <form onSubmit={handleSubmit} style={styles.form}>

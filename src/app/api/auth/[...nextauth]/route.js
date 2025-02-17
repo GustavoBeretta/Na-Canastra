@@ -1,11 +1,10 @@
 import NextAuth from "next-auth/next"
 import CredentialsProvider from "next-auth/providers/credentials"
-import connectMongoDB from "../../../lib/db"
-import bcrypt from 'bcryptjs'
+import connectMongoDB from "../../../../lib/db"
 
 // função para achar um usuário no banco de dados que corresponda com o email digitado
 async function findUser(email) {
-    const response = await fetch("https://localhost3000/api/users");
+    const response = await fetch("http://localhost:3000/api/users");
     const usuarios = await response.json();
     const user = await usuarios.users.find((usuario) => usuario.email === email);
     return user;
@@ -30,10 +29,7 @@ const authOptions = {
                         return null
                     }
                     
-                    // verifica se a senha digitada bate com a registrada no BD
-                    const passwordsMatch = await bcrypt.compare(password, user.password)
-                    
-                    if (!passwordsMatch) {
+                    if (password != user.password) {
                         return null
                     }
 
@@ -65,7 +61,7 @@ const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
         // rota da página de login
-        signIn: "/",
+        signIn: "/login",
     },
 }
 
