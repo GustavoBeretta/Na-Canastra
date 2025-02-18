@@ -1,40 +1,52 @@
 .card_produto {
     background-color: var(--cor--primaria);
     color: white;
-    width: 320px;
+    width: 320px; 
+    height: 180px; 
     border-radius: 10px;
     margin: 15px 5px;
     display: flex;
-    padding: 10px;
+    flex-direction: row; 
+    align-items: center; 
+    padding: 15px;
     position: relative;
-  }
-  
-  .foto_produto {
-    height: 150px;
-    border-radius: 90px;
-    margin-right: 20px;
-  }
-  
-  .nome_produto {
-    margin-bottom: 20px;
-    font-size: 25px;
+    text-align: left;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.foto_produto {
+    width: 120px; 
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover; 
+    margin-right: 15px;
+}
+
+.produto_info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz com que ocupe o espaço restante */
+}
+
+.nome_produto {
+    font-size: 20px;
     font-weight: 600;
-  }
-  
-  .peso {
-    font-size: 20px;
-    margin-bottom: 40px;
-  }
-  
-  .preco {
-    font-size: 20px;
-    font-weight: 500;
+    margin-bottom: 5px;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    max-width: 180px;
+}
+
+.peso, .tipo {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.preco {
+    font-size: 18px;
+    font-weight: bold;
     position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  
-  .tipo {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
+    bottom: 15px;
+    right: 15px;
+}
