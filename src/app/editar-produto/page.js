@@ -4,6 +4,7 @@ import ProductCardAdmin from '@/components/ProductCardAdmin';
 import { useState, useEffect } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
 import { signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation'
 
 const getProdutos = async () => {
   try {
@@ -20,6 +21,9 @@ const getProdutos = async () => {
 };
 
 export default function EditarProdutos() {
+
+  const router = useRouter();
+
   const [produtos, setProdutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +46,7 @@ export default function EditarProdutos() {
       <div style={styles_local.div_container}>
         <button className={styles.button} onClick={() => signOut()}>Encerrar sessão</button>
         <h1 className='tipo_cardapio'>Editar produtos</h1>
-        <button className={styles.button}>Criar produto</button>
+        <button className={styles.button} onClick={() => router.push('/criar-produto')}>Criar produto</button>
       </div>
       <div className='produtos'>
         {produtos.length > 0 ? (
