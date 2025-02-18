@@ -2,6 +2,7 @@
 
 import ProductCardAdmin from '@/components/ProductCardAdmin';
 import { useState, useEffect } from 'react';
+import styles from '../../styles/CRUDProduto.module.css';
 
 const getProdutos = async () => {
   try {
@@ -37,7 +38,11 @@ export default function EditarProdutos() {
 
   return (
     <main>
-      <h1 className='tipo_cardapio'>Editar produtos</h1>
+      <div style={styles_local.div_container}>
+        <button className={styles.button}>Encerrar sessão</button>
+        <h1 className='tipo_cardapio'>Editar produtos</h1>
+        <button className={styles.button}>Criar produto</button>
+      </div>
       <div className='produtos'>
         {produtos.length > 0 ? (
           produtos.map(q => (
@@ -57,4 +62,10 @@ export default function EditarProdutos() {
       </div>
     </main>
   );
+}
+
+const styles_local = {
+  div_container: {
+    display: 'flex',
+  }
 }
