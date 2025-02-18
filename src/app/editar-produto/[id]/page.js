@@ -106,6 +106,7 @@ export default function EditarProduto({ params }) {
 
     return (
         <main>
+        <button className={styles.button} style={styles_local.button} onClick={() => router.push('/editar-produto')}>Voltar</button>
         <h1 className='tipo_cardapio'>Editar ou excluir um produto</h1>
         <div>
             <form onSubmit={handleSubmit} className={styles.form_container}>
@@ -144,4 +145,10 @@ export default function EditarProduto({ params }) {
         </div>
         </main>
     );
+}
+
+const styles_local = {
+    button: {
+        display: 'block',
+    }
 }

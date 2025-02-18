@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
+import { useRouter } from 'next/navigation'
 
 export default function CriarProduto() {
 
@@ -46,8 +47,11 @@ export default function CriarProduto() {
 
     };
 
+    const router = useRouter();
+
     return (
         <main>
+        <button className={styles.button} style={styles_local.button} onClick={() => router.push('/editar-produto')}>Voltar</button>
         <h1 className='tipo_cardapio'>Criar um produto</h1>
         <div>
             <form onSubmit={handleSubmit} className={styles.form_container}>
@@ -84,4 +88,10 @@ export default function CriarProduto() {
         </div>
         </main>
     );
+}
+
+const styles_local = {
+    button: {
+        display: 'block',
+    }
 }
