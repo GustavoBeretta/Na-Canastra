@@ -3,6 +3,7 @@
 import ProductCardAdmin from '@/components/ProductCardAdmin';
 import { useState, useEffect } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
+import { signOut } from "next-auth/react"
 
 const getProdutos = async () => {
   try {
@@ -39,7 +40,7 @@ export default function EditarProdutos() {
   return (
     <main>
       <div style={styles_local.div_container}>
-        <button className={styles.button}>Encerrar sessão</button>
+        <button className={styles.button} onClick={() => signOut()}>Encerrar sessão</button>
         <h1 className='tipo_cardapio'>Editar produtos</h1>
         <button className={styles.button}>Criar produto</button>
       </div>
