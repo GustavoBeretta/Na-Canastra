@@ -17,7 +17,7 @@ export default function LoginPage() {
             });
 
             if (res.error){
-                alert("FALHA NA AUTENTICAÇÃO");
+                alert("E-mail ou senha incorretos");
                 return;
             }
 

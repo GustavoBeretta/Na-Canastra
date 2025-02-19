@@ -26,16 +26,17 @@ const authOptions = {
 
                     // se nào for encontrado nenhum usuário com o email digitado, o retorno será 'null', o que resultará em um erro
                     if (!user) {
-                        return null
+                        throw new Error("E-mail não cadastrado")
                     }
                     
                     if (password != user.password) {
-                        return null
+                        throw new Error("Senha incorreta")
                     }
 
                     return user
                 } catch (error) {
-                    console.log('Error: ', error)
+                    console.log(error)
+                    return null
                 }
             },
         }),
