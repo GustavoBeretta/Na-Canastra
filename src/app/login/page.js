@@ -1,33 +1,42 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function LoginPage() {
     const router = useRouter(); 
+    const { data: session, status } = useSession();
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     
-      const handleSubmit =  async(event) => {
-          event.preventDefault();
+    useEffect(() => {
+      if (status === "loading") return;
+      if (session) {
+        router.push("/editar-produto");
+      }
+    }, [session, status, router]);
 
-          try {
-            const res = await signIn("credentials", {
-              email, password, redirect: false,
-            });
+    const handleSubmit =  async(event) => {
+        event.preventDefault();
 
-            if (res.error){
-                alert("E-mail ou senha incorretos");
-                return;
-            }
+        try {
+          const res = await signIn("credentials", {
+            email, password, redirect: false,
+          });
 
-            router.push("/editar-produto");
-          
-          } catch (error) {
-              console.log(error)
+          if (res.error){
+              alert("E-mail ou senha incorretos");
+              return;
           }
 
-      }
+          router.push("/editar-produto");
+        
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 
     return (
       <div style={styles.container}>
