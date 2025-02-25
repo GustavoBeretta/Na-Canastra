@@ -6,19 +6,68 @@
     margin: 15px 5px;
     display: flex;
     padding: 10px;
+    align-items: center; 
     position: relative;
   }
   
   .foto_produto {
     height: 150px;
+    width: 150px; 
     border-radius: 90px;
+    object-fit: cover; 
     margin-right: 20px;
   }
   
   .nome_produto {
+    max-width: 140px;
     margin-bottom: 20px;
     font-size: 25px;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .nome_produto span {
+    display: inline-block;
+    padding-left: 100%; /* inicia fora da área visível */
+    animation: marquee 12s linear infinite;
+  }
+  
+  @keyframes marquee {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  .nome_produto_normal {
+    margin-bottom: 20px;
+    font-weight: 600;
+    line-height: 1.2em;       
+    font-size: 25px;
+  }
+  
+  .nome_produto_marquee {
+    margin-bottom: 20px;
+    height: 3.6em;       
+    line-height: 1.2em;
+    font-weight: 600;
+    font-size: 25px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .nome_produto_marquee span {
+    display: inline-block;
+    animation: marqueeVertical 5s linear infinite;
+  }
+  
+  @keyframes marqueeVertical {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
   }
   
   .peso {
