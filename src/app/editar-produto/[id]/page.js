@@ -37,6 +37,10 @@ export default function EditarProduto({ params }) {
     useEffect(() => {
         const fetchProduct = async (id) => {
           const product = await getProduct(id);
+          if (product === null) {
+              router.push('/editar-produto')
+              return
+          }
           setFormData(product);
           setIsLoading(false);
         };
@@ -138,7 +142,7 @@ export default function EditarProduto({ params }) {
                     <option value="Variedades" className={styles.options}>Variedades</option>
                 </select>
 
-                <button type="submit" className={styles.button}>Editar produto</button>
+                <button type="submit" className={styles.button}>Salvar</button>
 
                 <button type="button" onClick={removeProduct} className={styles.button}>Excluir produto</button>
             </form>

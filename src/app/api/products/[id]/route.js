@@ -20,6 +20,9 @@ export async function GET(request, {params}) {
         const { id } = params
         await connectDatabase()
         const product = await Product.findById(id)
+        if (product === null) {
+            throw new Error('Produto não encontrado')
+        }
         return NextResponse.json({ product })
     } catch(error) {
         console.log(error)
