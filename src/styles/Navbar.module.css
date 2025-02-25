@@ -1,7 +1,12 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background: var(--cor--primaria);
   color: var(--cor--secundaria);
   padding-inline: 16px;
+  z-index: 1000;
 }
 
 .nav {

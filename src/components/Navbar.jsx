@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles/Navbar.module.css';
 import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 
@@ -9,10 +9,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
-    document.body.style.overflow = isOpen ? 'auto' : 'hidden';
+    setIsOpen(prev => !prev);
   };
   
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+  }, [isOpen]);
 
   return (
     <header className={styles.header}>
@@ -43,11 +45,31 @@ export default function Navbar() {
         </div>
 
         <ul className={`${styles.nav_list} ${isOpen ? styles.open : ''}`}>
-            <li><Link href="/">Queijos</Link></li>
-            <li><Link href="/bufala">Búfala</Link></li>
-            <li><Link href="/zero-lactose">Zero Lactose</Link></li>
-            <li><Link href="/doces">Doces</Link></li>
-            <li><Link href="/variedades">Variedades</Link></li>
+          <li>
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              Queijos
+            </Link>
+          </li>
+          <li>
+            <Link href="/bufala" onClick={() => setIsOpen(false)}>
+              Búfala
+            </Link>
+          </li>
+          <li>
+            <Link href="/zero-lactose" onClick={() => setIsOpen(false)}>
+              Zero Lactose
+            </Link>
+          </li>
+          <li>
+            <Link href="/doces" onClick={() => setIsOpen(false)}>
+              Doces
+            </Link>
+          </li>
+          <li>
+            <Link href="/variedades" onClick={() => setIsOpen(false)}>
+              Variedades
+            </Link>
+          </li>
         </ul>
       
       </nav>
