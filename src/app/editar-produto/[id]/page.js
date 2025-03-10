@@ -41,6 +41,7 @@ export default function EditarProduto({ params }) {
               router.push('/editar-produto')
               return
           }
+          product.preco = String((product.preco/100).toFixed(2))
           setFormData(product);
           setIsLoading(false);
         };
@@ -59,7 +60,7 @@ export default function EditarProduto({ params }) {
 
         try {
             if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length != 2)) {
-                throw new Error('O preço deve ser um número no formato "1,23"');
+                throw new Error('O preço deve ser um número no formato "1.23"');
             }
 
             const res = await fetch(`/api/products/${id}`, {
