@@ -44,7 +44,7 @@ export default function Variedades() {
           produtos.map(q => (
             <ProductCard
               key={q._id}
-              imagem={q.imagem ? q.imagem : 'https://via.placeholder.com/150'}
+              urlImagem={q.urlImagem ? q.urlImagem : 'https://via.placeholder.com/150'}
               name={q.name}
               peso={q.peso}
               preco={q.preco}

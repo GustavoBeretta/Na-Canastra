@@ -2,7 +2,7 @@ import styles from '../styles/ProductCard.module.css';
 import Link from 'next/link';
 import { useState, useRef, useEffect } from 'react';
 
-export default function ProductCardAdmin({ id, imagem, name, peso, tipo, preco}) {
+export default function ProductCardAdmin({ id, urlImagem, name, peso, tipo, preco}) {
 
   const nameRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -17,7 +17,7 @@ export default function ProductCardAdmin({ id, imagem, name, peso, tipo, preco})
   return (
     <Link href={`/editar-produto/${id}`} passHref>
         <div className={styles.card_produto}>
-        <img src={imagem} className={styles.foto_produto}/>
+        <img src={urlImagem} className={styles.foto_produto}/>
         <div>
             <h2 
               className={styles.nome_produto} 

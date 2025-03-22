@@ -2,52 +2,75 @@
 
 import React, { useState } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { app } from '../../lib/firebaseConfig';
 
 export default function CriarProduto() {
-
     const [formData, setFormData] = useState({
         name: '',
         peso: '',
         preco: '',
-        imagem: '',
-        tipo: ''
+        imagem: null,
+        tipo: '',
+        urlImagem: '',
+        caminhoImagem: ''
     });
+    const [uploading, setUploading] = useState(false);
+    const router = useRouter();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
-        setFormData({ ...formData, [name]: newValue });
-    };
+        const { name, value, files } = e.target;
+        if (name === 'imagem') {
+          setFormData({ ...formData, imagem: files[0] });
+        } else {
+          const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
+          setFormData({ ...formData, [name]: newValue });
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length != 2)) {
+            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length !== 2)) {
                 throw new Error('O preço deve ser um número no formato "1,23"');
             }
+    
+            setUploading(true);
+          
+            const storage = getStorage(app);
+            const filePath = `${Date.now()}_${formData.imagem.name}`
+            const imageRef = ref(storage, filePath);
+            await uploadBytes(imageRef, formData.imagem);
+            const downloadURL = await getDownloadURL(imageRef);
 
+            const payload = { 
+                ...formData, 
+                urlImagem: downloadURL, 
+                caminhoImagem: filePath 
+            };
+            
             const res = await fetch('/api/products', {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify(formData)
-            })
-
-            const data = await res.json()
+                body: JSON.stringify(payload)
+            });
+    
+            const data = await res.json();
             if (res.ok) {
                 alert(data.message)
+                router.push('/editar-produto');
             } else {
                 throw new Error(data.message)
             }
         } catch(error) {
-            alert(error)
+            alert(error.message);
+        } finally {
+            setUploading(false)
         }
-
     };
-
-    const router = useRouter();
 
     return (
         <main>
@@ -64,8 +87,8 @@ export default function CriarProduto() {
                 <label htmlFor="preco" className={styles.text}>Preço:</label>
                 <input type="text" name="preco" onChange={handleChange} required className={styles.input}/>
 
-                <label htmlFor="imagem" className={styles.text}>Link da imagem:</label>
-                <input type="text" name="imagem" onChange={handleChange} required className={styles.input}/>
+                <label htmlFor="imagem" className={styles.text}>Selecione a imagem:</label>
+                <input type="file" name="imagem" onChange={handleChange} accept="image/*" required />
 
                 <label htmlFor="tipo" className={styles.text}>Tipo:</label>
                 <select
@@ -83,7 +106,9 @@ export default function CriarProduto() {
                     <option value="Variedades" className={styles.options}>Variedades</option>
                 </select>
 
-                <button type="submit" className={styles.button}>Criar produto</button>
+                <button type="submit" className={styles.button} disabled={uploading}>
+                    {uploading ? 'Criando...' : 'Criar produto'}
+                </button>
             </form>
         </div>
         </main>

@@ -20,7 +20,11 @@ const productSchema = new mongoose.Schema({
         enum: ['Queijos', 'Búfala', 'Zero Lactose', 'Doces', 'Variedades'],
         required: true,
     },
-    imagem: {
+    urlImagem: {
+        type: String,
+        required: true
+    },
+    caminhoImagem: {
         type: String,
         required: true
     }

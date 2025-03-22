@@ -54,7 +54,7 @@ export default function EditarProdutos() {
             <ProductCardAdmin
               key={q._id}
               id={q._id}
-              imagem={q.imagem ? q.imagem : 'https://via.placeholder.com/150'}
+              urlImagem={q.urlImagem ? q.urlImagem : 'https://via.placeholder.com/150'}
               name={q.name}
               peso={q.peso}
               tipo={q.tipo}

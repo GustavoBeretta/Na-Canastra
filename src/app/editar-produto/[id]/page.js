@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import styles from '../../../styles/CRUDProduto.module.css';
 import { useRouter } from 'next/navigation'
+import { getStorage, ref, deleteObject, uploadBytes, getDownloadURL } from "firebase/storage";
+import { app } from '../../../lib/firebaseConfig';
 
 const getProduct= async (id) => {
     try {
@@ -19,16 +21,17 @@ const getProduct= async (id) => {
 }
 
 export default function EditarProduto({ params }) {
-
     const [formData, setFormData] = useState({
         name: '',
         peso: '',
         preco: '',
-        imagem: '',
-        tipo: ''
+        imagem: null,
+        tipo: '',
+        urlImagem: '',
+        caminhoImagem: ''
     });
-
     const [isLoading, setIsLoading] = useState(true);
+    const [uploading, setUploading] = useState(false);
 
     const router = useRouter()
 
@@ -50,10 +53,14 @@ export default function EditarProduto({ params }) {
     }, []);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
-        setFormData({ ...formData, [name]: newValue });
-    };
+        const { name, value, files } = e.target;
+        if (name === 'imagem') {
+          setFormData({ ...formData, imagem: files[0] });
+        } else {
+          const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
+          setFormData({ ...formData, [name]: newValue });
+        }
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -63,12 +70,36 @@ export default function EditarProduto({ params }) {
                 throw new Error('O preço deve ser um número no formato "1.23"');
             }
 
+            setUploading(true);
+
+            let payload = formData;
+
+            if (formData.imagem) {
+                const storage = getStorage(app);
+                let imageRef = ref(storage, formData.caminhoImagem);
+                deleteObject(imageRef)
+                    .catch((error) => {
+                        throw new Error(error.message);
+                    });
+
+                const filePath = `${Date.now()}_${formData.imagem.name}`
+                imageRef = ref(storage, filePath);
+                await uploadBytes(imageRef, formData.imagem);
+                const downloadURL = await getDownloadURL(imageRef);
+                
+                payload = { 
+                ...formData, 
+                urlImagem: downloadURL, 
+                caminhoImagem: filePath 
+                };
+            }
+
             const res = await fetch(`/api/products/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             })
 
             const data = await res.json()
@@ -79,6 +110,8 @@ export default function EditarProduto({ params }) {
             }
         } catch(error) {
             alert(error)
+        } finally {
+            setUploading(false)
         }
 
     };
@@ -94,8 +127,17 @@ export default function EditarProduto({ params }) {
 
                 const data = await res.json()
                 if (res.ok) {
-                    alert(data.message)
-                    router.push('/editar-produto')
+                    const storage = getStorage(app);
+                    const imageRef = ref(storage, formData.caminhoImagem);
+
+                    deleteObject(imageRef)
+                        .then(() => {
+                            alert(data.message)
+                            router.push('/editar-produto')
+                        })
+                        .catch(async (error) => {
+                            throw new Error(error.message);
+                        });  
                 } else {
                     throw new Error(data.message)
                 }
@@ -124,8 +166,8 @@ export default function EditarProduto({ params }) {
                 <label htmlFor="preco" className={styles.text}>Preço:</label>
                 <input type="text" name="preco" onChange={handleChange} required className={styles.input} value={formData.preco}/>
 
-                <label htmlFor="imagem" className={styles.text}>Link da imagem:</label>
-                <input type="text" name="imagem" onChange={handleChange} required className={styles.input} value={formData.imagem}/>
+                <label htmlFor="imagem" className={styles.text}>Selecione a imagem:</label>
+                <input type="file" name="imagem" onChange={handleChange} accept="image/*" />
 
                 <label htmlFor="tipo" className={styles.text}>Tipo:</label>
                 <select
@@ -143,9 +185,11 @@ export default function EditarProduto({ params }) {
                     <option value="Variedades" className={styles.options}>Variedades</option>
                 </select>
 
-                <button type="submit" className={styles.button}>Salvar</button>
+                <button type="submit" className={styles.button} disabled={uploading}>
+                    {uploading ? 'Salvando...' : 'Salvar'}
+                </button>
 
-                <button type="button" onClick={removeProduct} className={styles.button}>Excluir produto</button>
+                <button type="button" onClick={removeProduct} className={styles.button} disabled={uploading}>Excluir produto</button>
             </form>
         </div>
         </main>

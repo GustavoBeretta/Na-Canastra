@@ -1,7 +1,7 @@
 import styles from '../styles/ProductCard.module.css';
 import { useState, useRef, useEffect } from 'react';
 
-export default function ProductCard({imagem, name, peso, preco}) {
+export default function ProductCard({urlImagem, name, peso, preco}) {
 
   const nameRef = useRef(null);
   const [isOverflowing2Lines, setIsOverflowing2Lines] = useState(false);
@@ -24,7 +24,7 @@ export default function ProductCard({imagem, name, peso, preco}) {
 
   return (
     <div className={styles.card_produto}>
-      <img src={imagem} className={styles.foto_produto}/>
+      <img src={urlImagem} className={styles.foto_produto}/>
       <div>
       <h2
           ref={nameRef}
