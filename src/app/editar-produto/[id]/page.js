@@ -76,16 +76,16 @@ export default function EditarProduto({ params }) {
 
             if (formData.imagem) {
                 const storage = getStorage(app);
-                let imageRef = ref(storage, formData.caminhoImagem);
+                const filePath = `${Date.now()}_${formData.imagem.name}`
+                let imageRef = ref(storage, filePath);
+                await uploadBytes(imageRef, formData.imagem);
+                const downloadURL = await getDownloadURL(imageRef);
+                
+                imageRef = ref(storage, formData.caminhoImagem);
                 deleteObject(imageRef)
                     .catch((error) => {
                         throw new Error(error.message);
                     });
-
-                const filePath = `${Date.now()}_${formData.imagem.name}`
-                imageRef = ref(storage, filePath);
-                await uploadBytes(imageRef, formData.imagem);
-                const downloadURL = await getDownloadURL(imageRef);
                 
                 payload = { 
                 ...formData, 
