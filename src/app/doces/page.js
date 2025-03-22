@@ -25,7 +25,8 @@ export default function Doces() {
     const fetchProducts = async () => {
       const data = await getProdutos();
       const produtos = data.filter(product => product.tipo === 'Doces');
-      setProdutos(produtos);
+      const produtosOrdenados = produtos.sort((a, b) => a.name.localeCompare(b.name));
+      setProdutos(produtosOrdenados);
       setIsLoading(false);
     };
 

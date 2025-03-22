@@ -30,7 +30,8 @@ export default function EditarProdutos() {
   useEffect(() => {
     const fetchProducts = async () => {
       const produtos = await getProdutos();
-      setProdutos(produtos);
+      const produtosOrdenados = produtos.sort((a, b) => a.name.localeCompare(b.name));
+      setProdutos(produtosOrdenados);
       setIsLoading(false);
     };
 

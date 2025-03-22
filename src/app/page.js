@@ -25,7 +25,8 @@ export default function Queijos() {
     const fetchProducts = async () => {
       const data = await getQueijos();
       const queijos = data.filter(product => product.tipo === 'Queijos');
-      setQueijos(queijos);
+      const produtosOrdenados = queijos.sort((a, b) => a.name.localeCompare(b.name));
+      setQueijos(produtosOrdenados);
       setIsLoading(false);
     };
 
