@@ -5,20 +5,7 @@ import { useState, useEffect } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
 import { signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-
-const getProdutos = async () => {
-  try {
-    const res = await fetch('/api/products', {cache: "no-store"});
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.message);
-    }
-    return Array.isArray(data.products) ? data.products : [];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+import getProdutos from '@/utils/getProdutos';
 
 export default function EditarProdutos() {
 

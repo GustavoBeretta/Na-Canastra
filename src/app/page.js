@@ -2,20 +2,7 @@
 
 import ProductCard from '@/components/ProductCard';
 import { useState, useEffect } from 'react';
-
-const getQueijos = async () => {
-  try {
-    const res = await fetch('/api/products', {cache: "no-store"});
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.message);
-    }
-    return Array.isArray(data.products) ? data.products : [];
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
+import getProdutos from '@/utils/getProdutos';
 
 export default function Queijos() {
   const [queijos, setQueijos] = useState([]);
@@ -23,7 +10,7 @@ export default function Queijos() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getQueijos();
+      const data = await getProdutos();
       const queijos = data.filter(product => product.tipo === 'Queijos');
       const produtosOrdenados = queijos.sort((a, b) => a.name.localeCompare(b.name));
       setQueijos(produtosOrdenados);
