@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+require('mongoose-currency').loadType(mongoose)
+
 var Currency = mongoose.Types.Currency
 
 const productSchema = new mongoose.Schema({
