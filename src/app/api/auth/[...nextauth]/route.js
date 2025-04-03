@@ -4,7 +4,7 @@ import connectMongoDB from "../../../../lib/db"
 
 // função para achar um usuário no banco de dados que corresponda com o email digitado
 async function findUser(email) {
-    const response = await fetch("http://localhost:3000/api/users");
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/users`);
     const usuarios = await response.json();
     const user = await usuarios.users.find((usuario) => usuario.email === email);
     return user;
