@@ -44,7 +44,6 @@ export default function EditarProduto({ params }) {
               router.push('/editar-produto')
               return
           }
-          product.preco = String((product.preco/100).toFixed(2))
           setFormData(product);
           setIsLoading(false);
         };
@@ -57,8 +56,7 @@ export default function EditarProduto({ params }) {
         if (name === 'imagem') {
           setFormData({ ...formData, imagem: files[0] });
         } else {
-          const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
-          setFormData({ ...formData, [name]: newValue });
+          setFormData({ ...formData, [name]: value });
         }
       };
 
@@ -66,10 +64,6 @@ export default function EditarProduto({ params }) {
         e.preventDefault();
 
         try {
-            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length != 2)) {
-                throw new Error('O preço deve ser um número no formato "1.23"');
-            }
-
             setUploading(true);
 
             let payload = formData;

@@ -28,7 +28,7 @@ export default function ProductCardAdmin({ id, urlImagem, name, peso, tipo, prec
             </h2>
             <p className={styles.tipo}>{tipo}</p>
             <p className={styles.peso}>{peso}</p> 
-            <p className={styles.preco}>R${(preco/100).toFixed(2).replace(/\./g, ',')}</p>
+            <p className={styles.preco}>R${preco}</p>
         </div>
         </div>
     </Link>

@@ -24,18 +24,13 @@ export default function CriarProduto() {
         if (name === 'imagem') {
           setFormData({ ...formData, imagem: files[0] });
         } else {
-          const newValue = name === 'preco' ? value.replace(/,/g, '.') : value;
-          setFormData({ ...formData, [name]: newValue });
+          setFormData({ ...formData, [name]: value });
         }
       };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (isNaN(formData.preco) || (formData.preco.includes('.') && formData.preco.split('.')[1].length !== 2)) {
-                throw new Error('O preço deve ser um número no formato "1,23"');
-            }
-    
             setUploading(true);
           
             const storage = getStorage(app);

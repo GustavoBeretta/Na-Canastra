@@ -1,16 +1,12 @@
 import mongoose from "mongoose";
 
-require('mongoose-currency').loadType(mongoose)
-
-var Currency = mongoose.Types.Currency
-
 const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
     preco: {
-        type: Currency,
+        type: String,
         required: true,
     },
     peso: {
