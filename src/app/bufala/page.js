@@ -2,22 +2,19 @@
 
 import ProductCard from '@/components/ProductCard';
 import { useState, useEffect } from 'react';
-import getProdutos from '@/utils/getProdutos';
+import fetchProducts from '@/utils/fetchProducts';
 
 export default function Bufala() {
   const [produtos, setProdutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProdutos();
-      const produtos = data.filter(product => product.tipo === 'Búfala');
-      const produtosOrdenados = produtos.sort((a, b) => a.name.localeCompare(b.name));
-      setProdutos(produtosOrdenados);
-      setIsLoading(false);
+    const loadProdutos = async () => {
+      setProdutos(await fetchProducts("Búfala"))
+      setIsLoading(false)
     };
-
-    fetchProducts();
+    
+    loadProdutos()
   }, []);
 
   if (isLoading) {

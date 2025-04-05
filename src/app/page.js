@@ -2,22 +2,19 @@
 
 import ProductCard from '@/components/ProductCard';
 import { useState, useEffect } from 'react';
-import getProdutos from '@/utils/getProdutos';
+import fetchProducts from '@/utils/fetchProducts';
 
 export default function Queijos() {
-  const [queijos, setQueijos] = useState([]);
+  const [produtos, setProdutos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const data = await getProdutos();
-      const queijos = data.filter(product => product.tipo === 'Queijos');
-      const produtosOrdenados = queijos.sort((a, b) => a.name.localeCompare(b.name));
-      setQueijos(produtosOrdenados);
-      setIsLoading(false);
+    const loadProdutos = async () => {
+      setProdutos(await fetchProducts("Queijos"))
+      setIsLoading(false)
     };
-
-    fetchProducts();
+    
+    loadProdutos()
   }, []);
 
   if (isLoading) {
@@ -28,8 +25,8 @@ export default function Queijos() {
     <main>
       <h1 className='tipo_cardapio'>Queijos</h1>
       <div className='produtos'>
-        {queijos.length > 0 ? (
-          queijos.map(q => (
+        {produtos.length > 0 ? (
+          produtos.map(q => (
             <ProductCard
               key={q._id}
               urlImagem={q.urlImagem ? q.urlImagem : 'https://via.placeholder.com/150'}
