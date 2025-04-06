@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import styles from '../../styles/CRUDProduto.module.css';
 import { signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
-import getProdutos from '@/utils/getProdutos';
+import fetchProducts from '@/utils/fetchProducts';
 
 export default function EditarProdutos() {
 
@@ -15,14 +15,12 @@ export default function EditarProdutos() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const produtos = await getProdutos();
-      const produtosOrdenados = produtos.sort((a, b) => a.name.localeCompare(b.name));
-      setProdutos(produtosOrdenados);
-      setIsLoading(false);
+    const loadProdutos = async () => {
+      setProdutos(await fetchProducts())
+      setIsLoading(false)
     };
-
-    fetchProducts();
+    
+    loadProdutos()
   }, []);
 
   if (isLoading) {
