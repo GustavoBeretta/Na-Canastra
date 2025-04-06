@@ -47,7 +47,6 @@ export default function LoginPage() {
             E-mail
             <input
               type="text"
-              maxLength={20}
               style={styles.input}
               onChange={(event) => setEmail(event?.target.value)}
             />
@@ -57,7 +56,6 @@ export default function LoginPage() {
             Senha
             <input
               type="password"
-              maxLength={20}
               style={styles.input}
               onChange={(event) => setPassword(event?.target.value)}
             />
